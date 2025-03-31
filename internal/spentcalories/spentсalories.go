@@ -10,7 +10,7 @@ import (
 // Основные константы, необходимые для расчетов.
 const (
 	lenStep = 0.65 // средняя длина шага.
-	mInKm   = 1000 // количество метров в километре.
+	MInKm   = 1000 // количество метров в километре.
 	minInH  = 60   // количество минут в часе.
 )
 
@@ -40,7 +40,7 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 //
 // steps int — количество совершенных действий (число шагов при ходьбе и беге).
 func distance(steps int) float64 {
-	return (float64(steps) * lenStep) / mInKm
+	return (float64(steps) * lenStep) / MInKm
 }
 
 // meanSpeed возвращает значение средней скорости движения во время тренировки.
@@ -105,8 +105,7 @@ func WalkingSpentCalories(steps int, weight, height float64, duration time.Durat
 func TrainingInfo(data string, weight, height float64) string {
 	steps, activityType, duration, err := parseTraining(data)
 	if err != nil {
-		fmt.Printf("Ошибка обработки данных: %v\n", err)
-		return ""
+		return fmt.Sprintf("Ошибка обработки данных: %s\n", err.Error())
 	}
 	speed := meanSpeed(steps, duration)
 	dist := distance(steps)

@@ -42,10 +42,9 @@ func parsePackage(data string) (int, time.Duration, error) {
 func DayActionInfo(data string, weight, height float64) string {
 	steps, trackedTime, err := parsePackage(data)
 	if err != nil {
-		fmt.Printf("Ошибка обработки данных: %v\n", err)
-		return ""
+		return fmt.Sprintf("Ошибка обработки данных: %s\n", err.Error())
 	}
-	distance := (float64(steps) * StepLength) / 1000
+	distance := (float64(steps) * StepLength) / spentcalories.MInKm
 	calories := spentcalories.WalkingSpentCalories(steps, weight, height, trackedTime)
 
 	summary := fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\n"+
